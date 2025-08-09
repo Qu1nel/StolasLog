@@ -2,7 +2,17 @@
 engines:
   ruff:
     enabled: true
+
 exclude_paths:
+  - "uv.lock"
   - "docs/**"
-  - "tests/**"
-  - "tools/**"
+  - "dist/**"
+  - "build/**"
+  - ".venv/**"
+  - "**/__pycache__/**"
+  - ".ruff_cache/**"
+  - ".pytest_cache/**"
+  - ".mypy_cache/**"
+  - ".coverage"
+  - "htmlcov/**"
+  - "src/tools/*"
