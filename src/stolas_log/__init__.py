@@ -6,6 +6,12 @@ while offering powerful extensibility through a plugin system for advanced scena
 
 from importlib.metadata import version
 
+from stolas_log.configs import (
+    ComponentMetadata,
+    FormatterConfig,
+    LoggerConfig,
+    SinkConfig,
+)
 from stolas_log.exceptions import (
     ComponentError,
     ConfigurationError,
@@ -31,6 +37,11 @@ __all__ = [
     # Protocols for extensibility
     "SinkProtocol",
     "FormatterProtocol",
+    # Configuration models
+    "ComponentMetadata",
+    "SinkConfig",
+    "FormatterConfig",
+    "LoggerConfig",
     # Exception hierarchy
     "StolasLogError",
     "ConfigurationError",
