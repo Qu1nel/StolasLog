@@ -16,58 +16,93 @@ __all__ = [
 
 
 class StolasLogError(Exception):
-    """Base exception for all StolasLog errors.
+    """Base exception for all StolasLog-related errors.
 
-    All custom exceptions in StolasLog inherit from this base class.
-    Provides optional context information for better error diagnostics.
+    All other StolasLog exceptions inherit from this base class,
+    allowing for easy catching of any StolasLog-specific error.
     """
 
-    def __init__(self, message: str, *, context: dict[str, Any] | None = None) -> None:
-        """Initialize the exception with message and optional context.
+    def __init__(self, message: str, **kwargs: Any) -> None:
+        """Initialize the exception with a message and optional context.
 
         Args:
             message: Human-readable error message.
-            context: Optional dictionary with additional error context.
+            **kwargs: Additional context information stored as attributes.
         """
         super().__init__(message)
-        self.context: dict[str, Any] = context or {}
+        # Store additional context as instance attributes
+        for key, value in kwargs.items():
+            setattr(self, key, value)
 
 
 class ConfigurationError(StolasLogError):
-    """Exception raised for configuration-related errors.
+    """Exception raised when there are configuration-related errors.
 
-    This exception is raised when there are issues with logger configuration,
-    such as invalid parameter values, conflicting settings, or validation failures.
+    This includes invalid configuration values, missing required settings,
+    or conflicts between configuration options.
     """
 
-    pass
+    def __init__(self, message: str, field: str | None = None, value: Any | None = None, **kwargs: Any) -> None:
+        """Initialize configuration error with field context.
+
+        Args:
+            message: Human-readable error message.
+            field: Name of the configuration field that caused the error.
+            value: The invalid value that was provided.
+            **kwargs: Additional context information.
+        """
+        super().__init__(message, field=field, value=value, **kwargs)
 
 
 class ComponentError(StolasLogError):
-    """Exception raised for component-related errors.
+    """Exception raised when there are component-related errors.
 
-    Base class for all errors related to StolasLog components (sinks, formatters).
-    Used when components fail to initialize, register, or operate correctly.
+    This includes errors during component registration, initialization,
+    or operation of sinks, formatters, and other components.
     """
 
-    pass
+    def __init__(self, message: str, component_name: str | None = None, **kwargs: Any) -> None:
+        """Initialize component error with component context.
+
+        Args:
+            message: Human-readable error message.
+            component_name: Name of the component that caused the error.
+            **kwargs: Additional context information.
+        """
+        super().__init__(message, component_name=component_name, **kwargs)
 
 
 class SinkError(ComponentError):
-    """Exception raised for sink-specific errors.
+    """Exception raised when there are sink-specific errors.
 
-    This exception is raised when sinks fail to emit log records,
-    encounter I/O errors, or have configuration issues.
+    This includes errors during sink initialization, log emission,
+    or resource management within sink components.
     """
 
-    pass
+    def __init__(self, message: str, sink_name: str | None = None, **kwargs: Any) -> None:
+        """Initialize sink error with sink context.
+
+        Args:
+            message: Human-readable error message.
+            sink_name: Name of the sink that caused the error.
+            **kwargs: Additional context information (e.g., file_path).
+        """
+        super().__init__(message, component_name=sink_name, sink_name=sink_name, **kwargs)
 
 
 class FormatterError(ComponentError):
-    """Exception raised for formatter-specific errors.
+    """Exception raised when there are formatter-specific errors.
 
-    This exception is raised when formatters fail to format log records
-    or encounter issues with format strings or templates.
+    This includes errors during formatter initialization, log formatting,
+    or template processing within formatter components.
     """
 
-    pass
+    def __init__(self, message: str, formatter_name: str | None = None, **kwargs: Any) -> None:
+        """Initialize formatter error with formatter context.
+
+        Args:
+            message: Human-readable error message.
+            formatter_name: Name of the formatter that caused the error.
+            **kwargs: Additional context information.
+        """
+        super().__init__(message, component_name=formatter_name, **kwargs)
