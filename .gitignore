@@ -1,0 +1,59 @@
+# ==============================================================================
+#  .gitignore for StolasLog
+# ==============================================================================
+
+# --- Virtual Environments ---
+# Standard Python virtual environments
+.venv
+.env
+venv
+env
+
+# --- Caches ---
+# General caches
+.cache/
+__pycache__/
+
+# Tool-specific caches
+.ruff_cache/
+.pytest_cache/
+.mypy_cache/
+.coverage
+
+# --- Build, Distribution, and Packaging ---
+build/
+dist/
+*.egg-info/
+wheels/
+.eggs/
+.tox/
+
+# --- Test Reports ---
+htmlcov/
+coverage.xml
+
+# --- Documentation ---
+# Sphinx build output
+sdf/build/
+
+# MkDocs build output
+site/
+
+# --- IDE & Editor Specific ---
+# VSCode
+#.vscode/
+
+# PyCharm
+.idea/
+
+# --- OS Specific ---
+# macOS
+.DS_Store
+
+# --- Project Specific ---
+# Local secrets (if any)
+*.local
+
+# Logs generated during development
+*.log
+celerybeat-schedule

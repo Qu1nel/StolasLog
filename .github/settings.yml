@@ -1,0 +1,65 @@
+repository:
+  name: StolasLog
+  description: An elegant, powerful, and highly configurable logging framework for Python.
+  homepage: https://stolaslog.readthedocs.io/en/latest/
+  topics: logging, logger, loguru, structured-logging, development-tools, rich, pydantic, python
+  has_wiki: false
+  has_projects: false
+
+labels:
+  - name: "bug"
+    color: "d73a4a"
+    description: "Something isn't working as expected."
+  - name: "enhancement"
+    color: "a2eeef"
+    description: "An improvement to an existing feature."
+  - name: "feature request"
+    color: "7057ff"
+    description: "A suggestion for a new feature."
+  - name: "documentation"
+    color: "0075ca"
+    description: "Improvements or additions to documentation."
+  - name: "dependencies"
+    color: "0366d6"
+    description: "Pull requests that update a dependency."
+
+  - name: "good first issue"
+    color: "7057ff"
+    description: "Good for newcomers to contribute."
+  - name: "help wanted"
+    color: "008672"
+    description: "Extra attention is needed."
+  - name: "awaiting review"
+    color: "fbca04"
+    description: "This pull request is ready for review."
+
+  - name: "duplicate"
+    color: "cfd3d7"
+    description: "This issue or pull request already exists."
+  - name: "invalid"
+    color: "e4e669"
+    description: "This doesn't seem right."
+  - name: "wontfix"
+    color: "ffffff"
+    description: "This will not be worked on."
+
+branches:
+  - name: main
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+
+      required_status_checks:
+        strict: true
+        contexts:
+          - "validate-and-test (ubuntu-latest, 3.11)"
+          - "validate-and-test (ubuntu-latest, 3.12)"
+          - "validate-and-test (ubuntu-latest, 3.13)"
+          - "validate-and-test (windows-latest, 3.11)"
+          - "validate-and-test (windows-latest, 3.12)"
+          - "validate-and-test (windows-latest, 3.13)"
+
+      enforce_admins: true
+
+      restrictions: null

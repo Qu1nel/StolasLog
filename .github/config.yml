@@ -1,0 +1,14 @@
+newIssueWelcomeComment: >
+  👋 Hello there! Thank you for opening your first issue for **StolasLog**.
+
+  We appreciate you taking the time to help us improve the project. Please make sure you've provided all the information requested in the template. The maintainers will review your issue shortly.
+
+newPRWelcomeComment: >
+  🚀 Welcome and thank you for your contribution! We're excited to see your first pull request for **StolasLog**.
+
+  Please make sure you have read our [**Contributing Guidelines**](https://github.com/Qu1nel/StolasLog/blob/main/CONTRIBUTING.md) and that all CI checks are passing. A maintainer will be with you shortly to review your work.
+
+firstPRMergeComment: >
+  🎉 Congratulations on your first merged pull request, and welcome to the team of **StolasLog** contributors! We appreciate your hard work.
+
+  We look forward to seeing more of your contributions in the future!

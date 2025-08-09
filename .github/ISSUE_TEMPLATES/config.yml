@@ -1,0 +1,10 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: "❓ Ask a Question or Start a Discussion"
+    url: "https://github.com/Qu1nel/StolasLog/discussions/new?category=q-a"
+    about: "This is the best place to ask usage questions, share ideas, and engage with the community."
+
+  - name: "📖 Read the Full Documentation"
+    url: "https://stolaslog.readthedocs.io/en/latest/"
+    about: "Your question might already be answered in our comprehensive documentation."

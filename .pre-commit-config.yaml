@@ -1,0 +1,44 @@
+default_stages: [ commit, push ]
+files: ^(src/|tests/)
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-toml
+      - id: check-added-large-files
+      - id: detect-private-key
+      - id: no-commit-to-branch
+        stages: [ commit ]
+        args: [ --branch, main ]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [ --fix, --exit-non-zero-on-fix, --config=pyproject.toml ]
+      - id: ruff-format
+        args: [ --config=pyproject.toml ]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        args: [ --config-file=pyproject.toml ]
+        additional_dependencies: [
+          "pydantic>=2.7.0",
+          "pydantic-settings>=2.2.0",
+          "rich>=13.7.0",
+          "loguru>=0.7.0"
+        ]
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: "v3.29.0"
+    hooks:
+      - id: commitizen
+        stages: [ commit-msg ]
+#      - id: commitizen-branch
+#        stages: [ pre-push ]

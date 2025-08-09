@@ -1,0 +1,45 @@
+name: Core Checks (Tests, Lint, Types)
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  validate:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest, windows-latest ]
+        python-version: [ "3.11", "3.12", "3.13" ]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v1
+        with:
+          cache-key: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: uv pip install -e ".[dev,docs,performance]"
+
+      - name: Run Linters and Type Checker
+        run: make lint
+
+      - name: Run Tests with Coverage
+        run: make coverage
+
+      - name: Upload coverage reports to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          fail_ci_if_error: true

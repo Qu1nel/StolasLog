@@ -1,0 +1,167 @@
+# ==============================================================================
+#  Build System Configuration (PEP 517/518)
+# ==============================================================================
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+# ==============================================================================
+#  Project Metadata (PEP 621)
+# ==============================================================================
+[project]
+name = "stolas-log"
+version = "0.1.0" # Эта версия будет управляться автоматически
+description = "An elegant, powerful, and highly configurable logging framework for Python, built on Loguru, Pydantic, and Rich."
+keywords = ["logging", "logger", "loguru", "structured logging", "development tools", "rich", "pydantic"]
+authors = [{ name = "Ivan Kovach", email = "covach.qn@gmail.com" }]
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: System :: Logging",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+dependencies = [
+    "loguru>=0.7.0",
+    "pydantic>=2.7.0",
+    "pydantic-settings>=2.2.0",
+    "rich>=13.7.0",
+    "tomli>=2.0.0; python_version < '3.11'", # Tomli нужен только для версий Python < 3.11, в новых есть tomllib
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Qu1nel/StolasLog"
+"Documentation" = "https://stolaslog.readthedocs.io/en/latest/"
+"Bug Tracker" = "https://github.com/Qu1nel/StolasLog/issues"
+
+[project.optional-dependencies]
+performance = [
+    "orjson>=3.10.0",
+]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-cov",
+    "mypy>=1.10.0",
+    "build",
+    "twine",
+    "pre-commit",
+    "commitizen", # Для `make commit`
+    "python-semantic-release", # Для `make release`
+    "tox"
+]
+docs = [
+    "sphinx>=7.0.0",
+    "sphinx_rtd_theme>=1.3.0",
+    "sphinx-rtd-dark-mode>=1.3.0",
+    "myst-parser>=2.0.0",
+    "sphinx-design>=0.5.0",
+    "sphinx-autobuild>=2021.3.14",
+    "sphinx-feedback>=0.1.0",
+]
+
+# ==============================================================================
+#  Tool Configuration
+# ==============================================================================
+
+[tool.commitizen]
+# Basic configuration
+name = "cz_stolaslog"
+version_provider = "pep621"
+version = "0.1.0"  # Начальная версия, управляется semantic-release
+encoding = "utf-8"
+use_shortcuts = true
+major_version_zero = true
+
+# Versioning and tagging
+version_scheme = "semver"
+tag_format = "$version"
+annotated_tag = true
+gpg_sign = true
+bump_message = "Bump version: {current_version} → {new_version} [skip ci]"
+legacy_tag_formats = ["v{version}", "release-{version}"]
+ignored_tag_formats = ["test-*", "ignore-*"]
+
+# Commit validation
+allow_abort = false
+allowed_prefixes = ["Merge", "Revert", "fixup!"]
+retry_after_failure = false
+
+[project.entry-points."commitizen.plugin"]
+cz_stolaslog = "tools.cz_stolaslog:StolasCz"
+
+[tool.semantic_release]
+version_toml = ["pyproject.toml:project.version"]
+branch = "main"
+changelog_file = "CHANGELOG.md"
+major_on_zero = false
+upload_to_pypi = false
+upload_to_release = false
+build_command = "pip install build && python -m build"
+branches = { main = "main", develop = { name = "develop", prerelease = true } }
+
+[tool.ruff]
+line-length = 120
+exclude = [".venv", "build", "dist", "src/stolas_log.egg-info", "tests/fixtures"]
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "I", # isort
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "D", # pydocstyle (Google convention)
+    "Q", # flake8-quotes
+    "PT", # flake8-pytest-style
+    "UP", # pyupgrade
+]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"__init__.py" = ["D104"]
+"src/tools/*" = ["D", "E501"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.isort]
+known-first-party = ["stolas_log", "tests"]
+
+[tool.ruff.format]
+quote-style = "double"
+docstring-code-format = true
+
+[tool.mypy]
+python_version = "3.11"
+packages = ["stolas_log", "tools"]
+strict = true
+warn_unused_configs = true
+
+[[tool.mypy.overrides]]
+module = "commitizen.*"
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["stolas_log"]
+omit = [
+    "src/stolas_log/types.py",
+    "src/stolas_log/configs/models.py",
+    "src/stolas_log/exceptions.py",
+    "*/__init__.py",
+]
+
+[tool.coverage.report]
+fail_under = 90
+show_missing = true

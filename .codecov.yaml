@@ -1,0 +1,38 @@
+# ==============================================================================
+#  Codecov Configuration for StolasLog
+# ==============================================================================
+
+comment: false
+
+coverage:
+  status:
+    project:
+      default:
+        target: 95%
+        threshold: 5%
+        paths:
+          - "src/stolas_log"
+
+    patch:
+      default:
+        target: 100%
+        threshold: 0%
+
+ignore:
+  - "tests/"
+  - "docs/"
+  - "**/__init__.py"
+  - "src/stolas_log/types.py"
+  - "src/stolas_log/configs/models.py"
+  - "src/stolas_log/exceptions.py"
+
+parsers:
+  gcov:
+    branch_detection:
+      conditional: yes
+      loop: yes
+      method: no
+      macro: no
+
+github_checks:
+  annotations: false

@@ -1,0 +1,20 @@
+.wy-nav-content {
+    max-width: 1000px !important;
+}
+
+.rst-content tt.literal, .rst-content code.literal {
+    color: #e67e22; /* Яркий оранжевый */
+    background-color: #fdf6e3; /* Светло-кремовый фон */
+    border: 1px solid #f2e7c3;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-size: 90%;
+}
+
+/* Для темной темы, инвертируем цвета для встроенного кода */
+[data-theme="dark"] .rst-content tt.literal,
+[data-theme="dark"] .rst-content code.literal {
+    color: #f39c12;
+    background-color: #3a3a3a;
+    border: 1px solid #4a4a4a;
+}

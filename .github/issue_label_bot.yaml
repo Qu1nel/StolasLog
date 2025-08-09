@@ -1,0 +1,38 @@
+- labels:
+    - "bug"
+  keywords:
+    - "bug"
+    - "error"
+    - "fail"
+    - "failure"
+    - "traceback"
+    - "exception"
+    - "crash"
+
+- labels:
+    - "enhancement"
+    - "feature request"
+  keywords:
+    - "feature"
+    - "idea"
+    - "suggestion"
+    - "improve"
+    - "enhancement"
+    - "add"
+
+- labels:
+    - "documentation"
+  keywords:
+    - "docs"
+    - "documentation"
+    - "readme"
+    - "docstring"
+    - "tutorial"
+
+- labels:
+    - "help wanted"
+  keywords:
+    - "help"
+    - "question"
+    - "how to"
+    - "support"

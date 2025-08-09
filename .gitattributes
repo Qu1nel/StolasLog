@@ -1,0 +1,40 @@
+# ==============================================================================
+#  .gitattributes for StolasLog
+# ==============================================================================
+
+# --- Default Behavior ---
+# Set default behavior for all files to be text and enforce LF line endings.
+# This prevents issues between different operating systems.
+* text=auto eol=lf
+
+# --- Explicitly Text Files ---
+# Ensure these files always have LF line endings.
+*.py      text eol=lf
+*.md      text eol=lf
+*.toml    text eol=lf
+*.yaml    text eol=lf
+*.yml     text eol=lf
+*.json    text eol=lf
+*.txt     text eol=lf
+*.css     text eol=lf
+*.html    text eol=lf
+
+# --- Configuration Files ---
+# These are also text files and should have consistent line endings.
+.gitignore      text eol=lf
+.gitattributes  text eol=lf
+Makefile        text eol=lf
+
+# --- Binary Files ---
+# Mark common binary files as such to prevent Git from trying to diff them
+# or convert their line endings, which can corrupt them.
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+*.gif     binary
+*.svg     binary
+*.ico     binary
+*.woff    binary
+*.woff2   binary
+*.ttf     binary
+*.eot     binary
